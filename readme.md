@@ -4,9 +4,9 @@
 
 ## 1. Abstract
 
-
-
-
+Traditional network measurements lack the ability of obtaining fine-grained network state data, and thus cannot capture the micro-bursts in large-scale network environments such as the data center networks. By embedding the state data maintained by the programmable switch (like P4 switch) into normal flow packets and forwarding it to the collector for analysis, the In-band Network Telemetry (INT) method can greatly improve the freshness of measured data. However, due to the use of fixed telemetry tasks and metadata addition schemes, INT cannot be adjusted in time according to the network state.
+To further improve the measurement efficiency, we propose a flexible in-band network telemetry method FINT. Based on a triple bitmap mechanism, FITN can support adjusting telemetry tasks at runtime without significantly increasing INT fields. Meanwhile, a greedy strategy based telemetry metadata selection algorithm MSG is designed, which enables FINT to select appropriate telemetry metadata to add according to the state of packet.
+The experimental evaluation of FINT is carried out by building a P4 simulation environment. Experimental results show that FINT has the ability to adjust telemetry tasks and add telemetry metadata flexibly, and effectively reduce the average flow completion time of the mouse flow carrying telemetry data in the network without significantly increasing the bandwidth consumption.
 
 
 
@@ -22,12 +22,12 @@
    cd /dataplane/p4src
    cd /dataplane/p4src
    rm -r *.p4
-   cp ./other/int_switch_cmg.p4 .
+   cp ./other/int_switch_msg.p4 .
    cd ..
    make
    ```
 
-   change int_switch_cmg.p4 to int_switch_cmr.p4 for CMR.
+   change int_switch_msg.p4 to int_switch_msr.p4 for MSR.
 
 2. To install entries and set register value:
 
@@ -36,7 +36,7 @@
    make
    ```
 
-   change `make` to `make cmr` for CMR
+   change `make` to `make msr` for MSR
 
 3. In mininet CLI:
 
@@ -47,36 +47,36 @@
 4. In xterm of 'h9':
 
    ```sh
-   cd ../experiment/1\ bandwidth/bw_cmg
+   cd ../experiment/1\ bandwidth/bw_msg
    sh receiver.sh
    ```
 
-   change bw_cmg to bw_cmr for CMR.
+   change bw_msg to bw_msr for MSR.
 
 5. Start a new terminal, and:
 
    ```sh
-   cd ../experiment/1\ bandwidth/bw_cmg
-   sudo python int_count_cmg.py
+   cd ../experiment/1\ bandwidth/bw_msg
+   sudo python int_count_msg.py
    ```
 
-   change bw_cmg and bandwidth_cmg.py to bw_cmr and bandwidth_cmr.py for CMR.
+   change bw_msg and bandwidth_msg.py to bw_msr and bandwidth_msr.py for MSR.
 
 6. In xterm of 'h1':
 
    ```
-   cd ../experiment/1\ bandwidth/bw_cmg
+   cd ../experiment/1\ bandwidth/bw_msg
    sh sender.sh 100
    ```
 
    (100 refers to the packet send ratio of D-ITG (pps))
    
-   change bw_cmg to bw_cmr for CMR.
+   change bw_msg to bw_msr for MSR.
    
 7.  Get the result, start a new terminal, and:
 
     ```
-    cd ../experiment/1\ bandwidth/bw_cmg
+    cd ../experiment/1\ bandwidth/bw_msg
     sh parser.sh 100
     ```
 
@@ -94,12 +94,12 @@ For change background bandwidth, restart the step 4-6 and change the value of **
    cd /dataplane/p4src
    cd /dataplane/p4src
    rm -r *.p4
-   cp ./other/int_switch_cmg.p4 .
+   cp ./other/int_switch_msg.p4 .
    cd ..
    make
    ```
 
-   change **int_switch_cmg.p4** to **int_switch_cmr.p4** for CMR.
+   change **int_switch_msg.p4** to **int_switch_msr.p4** for MSR.
 
 2. To install entries and set register value:
 
@@ -108,7 +108,7 @@ For change background bandwidth, restart the step 4-6 and change the value of **
    make
    ```
 
-   change `make` to `make cmr` for CMR
+   change `make` to `make msr` for MSR
 
 3. In mininet CLI:
 
@@ -119,31 +119,31 @@ For change background bandwidth, restart the step 4-6 and change the value of **
 4. In xterm of 'h9':
 
    ```sh
-   cd ../experiment/2\ period/period_cmg
+   cd ../experiment/2\ period/period_msg
    sh receiver.sh
    ```
 
-   change **period_cmg** to **period_cmr** for CMR.
+   change **period_msg** to **period_msr** for MSR.
 
 5. Start a new terminal, and:
 
    ```sh
-   cd ../experiment/2\ period/period_cmg
-   sudo python int_count_cmg.py
+   cd ../experiment/2\ period/period_msg
+   sudo python int_count_msg.py
    ```
 
-   change **period_cmg** and **int_count_cmg.py** to **period_cmr** and **int_count_cmr.py** for CMR.
+   change **period_msg** and **int_count_msg.py** to **period_msr** and **int_count_msr.py** for MSR.
 
 6. In xterm of 'h1':
 
    ```sh
-   cd ../experiment/2\ period/period_cmg
+   cd ../experiment/2\ period/period_msg
    sh sender.sh 100
    ```
 
    (100 refers to the telemetry period (ms))
    
-   change **period_cmg** to **period_cmr** for CMR.
+   change **period_msg** to **period_msr** for MSR.
 
 
 
@@ -165,12 +165,12 @@ and restart step 4-6 (in step 6, change the value of **100** to **20**).
    cd /dataplane/p4src
    cd /dataplane/p4src
    rm -r *.p4
-   cp ./other/int_switch_cmg.p4 .
+   cp ./other/int_switch_msg.p4 .
    cd ..
    make
    ```
 
-   change **int_switch_cmg.p4** to **int_switch_cmr.p4** for CMR.
+   change **int_switch_msg.p4** to **int_switch_msr.p4** for MSR.
 
 2. To install entries and set register value:
 
@@ -187,7 +187,7 @@ and restart step 4-6 (in step 6, change the value of **100** to **20**).
    python change_int_parameters.py -a -bt 48643
    ```
 
-   change **48643** to **55435** for CMR.
+   change **48643** to **55435** for MSR.
 
 4. In mininet CLI:
 
@@ -198,31 +198,31 @@ and restart step 4-6 (in step 6, change the value of **100** to **20**).
 5. In xterm of 'h9':
 
    ```sh
-   cd ../experiment/3\ para_n/para_n_cmg
+   cd ../experiment/3\ para_n/para_n_msg
    sh receiver.sh
    ```
 
-   change **para_n_cmg** to **para_n_cmr** for CMR.
+   change **para_n_msg** to **para_n_msr** for MSR.
 
 6. Open a new terminal, and:
 
    ```sh
-   cd ../experiment/3\ para_n/para_n_cmg
-   sudo python int_count_cmg.py
+   cd ../experiment/3\ para_n/para_n_msg
+   sudo python int_count_msg.py
    ```
 
-   change **para_n_cmg** and **int_count_cmg.py** to **para_n_cmr** and **int_count_cmr.py** for CMR.
+   change **para_n_msg** and **int_count_msg.py** to **para_n_msr** and **int_count_msr.py** for MSR.
 
 7. In xterm of 'h1':
 
    ```sh
-   cd ../experiment/3\ para_n/para_n_cmg
+   cd ../experiment/3\ para_n/para_n_msg
    sh sender.sh 3
    ```
 
    (3 refers to the *n* value)
    
-   change **para_n_cmg** to **para_n_cmr** for CMR.
+   change **para_n_msg** to **para_n_msr** for MSR.
 
 
 
@@ -244,12 +244,12 @@ and restart step 4-6 (in step 6, change the value of **3** to **2**).
    cd /dataplane/p4src
    cd /dataplane/p4src
    rm -r *.p4
-   cp ./other/int_switch_cmg.p4 .
+   cp ./other/int_switch_msg.p4 .
    cd ..
    make
    ```
 
-   change **int_switch_cmg.p4** to **int_switch_cmr.p4** for CMR.
+   change **int_switch_msg.p4** to **int_switch_msr.p4** for MSR.
 
 2. To install entries and set register value:
 
@@ -266,7 +266,7 @@ and restart step 4-6 (in step 6, change the value of **3** to **2**).
    python change_int_parameters.py -a -bt 48643
    ```
 
-   change **48643** to **55435** for CMR.
+   change **48643** to **55435** for MSR.
 
 4. In mininet CLI:
 
@@ -277,22 +277,22 @@ and restart step 4-6 (in step 6, change the value of **3** to **2**).
 5. In xterm of 'h9':
 
    ```sh
-   cd ../experiment/4\ FCT/fct_cmg
+   cd ../experiment/4\ FCT/fct_msg
    sh receiver.sh
    ```
 
-   change **fct_cmg** to **fct_cmr** for CMR.
+   change **fct_msg** to **fct_msr** for MSR.
 
 6. In xterm of 'h1':
 
    ```sh
-   cd ../experiment/4\ FCT/para_n_cmg
+   cd ../experiment/4\ FCT/para_n_msg
    sh sender.sh 3
    ```
 
    (3 refers to the *n* value)
    
-   change **fct_cmg** to **fct_cmr** for CMR.
+   change **fct_msg** to **fct_msr** for MSR.
 
 
 
@@ -314,12 +314,12 @@ and restart step 4-6 (in step 6, change the value of **3** to **2**).
    cd /dataplane/p4src
    cd /dataplane/p4src
    rm -r *.p4
-   cp ./other/int_switch_cmg.p4 .
+   cp ./other/int_switch_msg.p4 .
    cd ..
    make
    ```
 
-   change **int_switch_cmg.p4** to **int_switch_cmr.p4** for CMR.
+   change **int_switch_msg.p4** to **int_switch_msr.p4** for MSR.
 
 2. To install entries and set register value:
 
@@ -328,7 +328,7 @@ and restart step 4-6 (in step 6, change the value of **3** to **2**).
    make
    ```
 
-   change `make` to `make cmr` for CMR
+   change `make` to `make msr` for MSR
 
 3. In mininet CLI:
 
@@ -339,31 +339,31 @@ and restart step 4-6 (in step 6, change the value of **3** to **2**).
 4. In xterm of 'h9':
 
    ```sh
-   cd ../experiment/5\ support/support_cmg
+   cd ../experiment/5\ support/support_msg
    sh receiver.sh
    ```
 
-   change **period_cmg** to **period_cmr** for CMR.
+   change **period_msg** to **period_msr** for MSR.
 
 5. Start a new terminal, and:
 
    ```sh
-   cd ../experiment/5\ support/support_cmg
-   sudo python int_count_cmg.py
+   cd ../experiment/5\ support/support_msg
+   sudo python int_count_msg.py
    ```
 
-   change **support_cmg** and **int_count_cmg.py** to **support_cmr** and **int_count_cmr.py** for CMR.
+   change **support_msg** and **int_count_msg.py** to **support_msr** and **int_count_msr.py** for MSR.
 
 6. In xterm of 'h1':
 
    ```sh
-   cd ../experiment/5\ support/support_cmg
+   cd ../experiment/5\ support/support_msg
    sh sender.sh 100
    ```
 
    (100 refers to the percentage of switches that support FINT)
 
-   change **support_cmg** to **support_cmr** for CMR.
+   change **support_msg** to **support_msr** for MSR.
 
 
 
@@ -386,7 +386,7 @@ and restart step 4-6 (in step 6, change the value of **100** to corresponding pr
    ```shell
    cd /dataplane/p4src
    rm -r *.p4
-   cp ./other/int_switch_cmg.p4 .
+   cp ./other/int_switch_msg.p4 .
    cd ..
    make
    ```
@@ -439,7 +439,7 @@ then do step 4 and 5.
    ```shell
    cd /dataplane/p4src
    rm -r *.p4
-   cp ./other/int_switch_cmg.p4 .
+   cp ./other/int_switch_msg.p4 .
    cd ..
    make
    ```
@@ -492,7 +492,7 @@ then do step 4 and 5.
    ```shell
    cd /dataplane/p4src
    rm -r *.p4
-   cp ./other/int_switch_cmg.p4 .
+   cp ./other/int_switch_msg.p4 .
    cd ..
    make
    ```
@@ -547,7 +547,7 @@ then do step 4 and 5.
    ```shell
    cd /dataplane/p4src
    rm -r *.p4
-   cp ./other/int_switch_cmg.p4 .
+   cp ./other/int_switch_msg.p4 .
    cd ..
    make
    ```
