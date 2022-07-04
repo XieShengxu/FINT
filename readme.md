@@ -1,4 +1,4 @@
-# FINT: Flexible In-band Network Telemetry Architecture
+# FINT: Flexible In-band Network Telemetry Method for Data Center Network
 
 
 
