@@ -4,9 +4,12 @@
 
 ## 1. Abstract
 
-Traditional network measurements lack the ability of obtaining fine-grained network state data, and thus cannot capture the micro-bursts in large-scale network environments such as the data center networks. By embedding the state data maintained by the programmable switch (like P4 switch) into normal flow packets and forwarding it to the collector for analysis, the In-band Network Telemetry (INT) method can greatly improve the freshness of measured data. However, due to the use of fixed telemetry tasks and metadata addition schemes, INT cannot be adjusted in time according to the network state.
-To further improve the measurement efficiency, we propose a flexible in-band network telemetry method FINT. Based on a triple bitmap mechanism, FITN can support adjusting telemetry tasks at runtime without significantly increasing INT fields. Meanwhile, a greedy strategy based telemetry metadata selection algorithm MSG is designed, which enables FINT to select appropriate telemetry metadata to add according to the state of packet.
-The experimental evaluation of FINT is carried out by building a P4 simulation environment. Experimental results show that FINT has the ability to adjust telemetry tasks and add telemetry metadata flexibly, and effectively reduce the average flow completion time of the mouse flow carrying telemetry data in the network without significantly increasing the bandwidth consumption.
+By embedding the state data maintained by the programmable data plane into user packets, the In-band Network Telemetry (INT) can greatly improve the freshness of measured data, such as capturing the micro-bursts in data center networks.
+However, because the existing INT schemes use fixed telemetry tasks and metadata adding strategies, INT cannot be adjusted in time according to the network state, thus lacking flexibility.
+To solve the above problems, we propose a Flexible In-band Network Telemetry method FINT.
+With the designed triple bitmap mechanism, telemetry tasks and parameters can be set dynamically at runtime, which providing flexibility without redeployment to improve telemetry efficiency and reduce the impact of telemetry on network performance.
+With the designed flexible INT field structure, the types of telemetry metadata carried by user packets can be flexibly selected without significantly adding the indication field. Based on this, to meet the limitation of packet length and reduces the impact on the flow completion time, a greedy telemetry metadata selection algorithm MSG is designed to preferentially select the telemetry metadata with maximum bit-width among the remaining telemetry metadata.
+The experimental results show that FINT is flexible in adjusting telemetry tasks and add telemetry metadata, and effectively reduce the average flow completion time of the mice flow carrying INT data in the network without significantly increasing the bandwidth consumption.
 
 
 
