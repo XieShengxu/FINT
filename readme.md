@@ -3,7 +3,7 @@
 
 ## Note:
 
-The data plane code will be uploaded after the manuscript is accepted.
+The data plane code of FINT will be uploaded after the manuscript is accepted.
 
 
 ## 1. Abstract
