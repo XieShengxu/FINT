@@ -1,6 +1,10 @@
 # FINT: Flexible In-band Network Telemetry Method for Data Center Network
 
 
+## Note:
+
+The data plane code will be uploaded after the manuscript is accepted.
+
 
 ## 1. Abstract
 
@@ -598,7 +602,7 @@ then do step 4 and 5.
 
 ### 2.2 INT-label
 
-base on INT-label Pro.
+base on INT-label Pro. Github link: [INT-label](https://github.com/haojianmao/INT-label)
 
 Note: All experiment data are saved in the folder 'experiment_data'.
 
