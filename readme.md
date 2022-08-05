@@ -1,11 +1,6 @@
 # FINT: Flexible In-band Network Telemetry Method for Data Center Network
 
 
-## Note:
-
-The data plane code of FINT will be uploaded after the manuscript is accepted.
-
-
 ## 1. Abstract
 
 By embedding the state data maintained by the programmable data plane into user packets, the In-band Network Telemetry (INT) can greatly improve the freshness of measured data, such as capturing the micro-bursts in data center networks.
